@@ -1,1 +1,1 @@
-web: sh target/bin/todo-backend-spring
+web: sh run.sh
