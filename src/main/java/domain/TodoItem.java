@@ -17,6 +17,7 @@ public class TodoItem {
     }
 
     public TodoItem() {
+        this.completed = false;
     }
 
     public TodoItem(DBObject dbObject) {

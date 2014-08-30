@@ -25,13 +25,9 @@ public class TodoListController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public TodoItem post(HttpServletRequest request,
-                         @RequestParam(value = "title", required = false) String title,
-                         @RequestParam(value = "completed", required = false) Boolean completed,
-                         @RequestParam(value = "url", required = false) String url,
-                         @RequestParam(value = "order", required = false) Integer order) throws Exception {
+                         @RequestBody TodoItem todoItem) throws Exception {
         String absoluteUrl = request.getRequestURL().toString();
-        url = absoluteUrl.replace("/todos", "/todo/{id}");
-        TodoItem todoItem = new TodoItem(title, completed, url, order);
+        todoItem.setUrl(absoluteUrl.replace("/todos", "/todo/{id}"));
         return todoListService.save(todoItem);
     }
 

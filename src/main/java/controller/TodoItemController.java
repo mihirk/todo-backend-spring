@@ -35,7 +35,6 @@ public class TodoItemController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
     public ResponseEntity<TodoItem> patch(@RequestBody TodoItem todoItem,
                                           @PathVariable("id") String id) {
-//        TodoItem todoItem = new TodoItem(title, completed, url, order);
         todoItem = todoItemService.patch(id, todoItem);
         if (todoItem == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
