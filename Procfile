@@ -1,1 +1,1 @@
-web: mvn spring-boot:run
+web: sh target/bin/todo-backend-spring
