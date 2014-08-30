@@ -30,8 +30,9 @@ public class DatabaseConnection {
     }
 
 
-    public void persist(BasicDBObject basicDBObject) {
+    public String persist(BasicDBObject basicDBObject) {
         collection.insert(basicDBObject);
+        return basicDBObject.get("_id").toString();
     }
 
     public List<DBObject> getAll() {

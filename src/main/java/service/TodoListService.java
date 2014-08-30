@@ -1,7 +1,9 @@
 package service;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import domain.TodoItem;
+import mapper.TodoItemMapper;
 import mapper.TodoListMapper;
 import org.springframework.stereotype.Component;
 
@@ -12,13 +14,18 @@ import java.util.List;
 @Component
 public class TodoListService {
     private TodoListMapper todoListMapper;
+    private TodoItemMapper todoItemMapper;
 
     public TodoListService() throws IOException {
         todoListMapper = new TodoListMapper();
+        todoItemMapper = new TodoItemMapper();
     }
 
     public void save(TodoItem todoItem) throws Exception {
-        todoListMapper.save(todoItem.dbObject());
+        BasicDBObject todoitemObject = todoItem.dbObject();
+        String savedId = todoListMapper.save(todoitemObject);
+        todoItem.setUrl(todoItem.getUrl().replace("{id}", savedId));
+        todoItemMapper.patch(savedId, todoItem.dbObject());
     }
 
     public List<TodoItem> get() {

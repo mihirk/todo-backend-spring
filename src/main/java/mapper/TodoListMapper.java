@@ -3,6 +3,7 @@ package mapper;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import dbinterface.DatabaseConnection;
+import domain.TodoItem;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,8 +16,8 @@ public class TodoListMapper {
         databaseConnection = DatabaseConnection.factory();
     }
 
-    public void save(BasicDBObject todoItem) throws IOException {
-        databaseConnection.persist(todoItem);
+    public String save(BasicDBObject todoItem) throws IOException {
+        return databaseConnection.persist(todoItem);
     }
 
     public List<DBObject> get() {

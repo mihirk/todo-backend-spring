@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import service.TodoListService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +24,13 @@ public class TodoListController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public TodoItem post(@RequestParam(value = "title", required = false) String title,
+    public TodoItem post(HttpServletRequest request,
+                         @RequestParam(value = "title", required = false) String title,
                          @RequestParam(value = "completed", required = false) Boolean completed,
                          @RequestParam(value = "url", required = false) String url,
                          @RequestParam(value = "order", required = false) Integer order) throws Exception {
+        String absoluteUrl = request.getRequestURL().toString();
+        url = absoluteUrl.replace("/todos", "/todo/{id}");
         TodoItem todoItem = new TodoItem(title, completed, url, order);
         todoListService.save(todoItem);
         return todoItem;
