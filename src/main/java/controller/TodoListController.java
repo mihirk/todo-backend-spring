@@ -32,8 +32,7 @@ public class TodoListController {
         String absoluteUrl = request.getRequestURL().toString();
         url = absoluteUrl.replace("/todos", "/todo/{id}");
         TodoItem todoItem = new TodoItem(title, completed, url, order);
-        todoListService.save(todoItem);
-        return todoItem;
+        return todoListService.save(todoItem);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)

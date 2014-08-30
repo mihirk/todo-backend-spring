@@ -21,11 +21,12 @@ public class TodoListService {
         todoItemMapper = new TodoItemMapper();
     }
 
-    public void save(TodoItem todoItem) throws Exception {
+    public TodoItem save(TodoItem todoItem) throws Exception {
         BasicDBObject todoitemObject = todoItem.dbObject();
         String savedId = todoListMapper.save(todoitemObject);
         todoItem.setUrl(todoItem.getUrl().replace("{id}", savedId));
         todoItemMapper.patch(savedId, todoItem.dbObject());
+        return todoItem;
     }
 
     public List<TodoItem> get() {
